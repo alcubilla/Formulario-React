@@ -18,6 +18,11 @@ class FormContainer extends Component {
             },
             usersSaved: INITIAL_STATE
         }
+
+    componentDidMount(){
+        console.log ('componentDidMount');
+
+    }
     
     
     handleName = (e) =>{
