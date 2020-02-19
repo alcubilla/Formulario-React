@@ -11,24 +11,16 @@ const INITIAL_STATE =[
 ];
 
 class FormContainer extends Component {
-    constructor(){
-        super();
-        this.state ={
+    state ={
             newUser:{
                 name: '',
                 age: ''
             },
             usersSaved: INITIAL_STATE
         }
-
-        this.handleName = this.handleName.bind(this);
-        this.handleAge = this.handleAge.bind(this);
-        this.handleFormSubmit = this.handleFormSubmit.bind(this);
-        this.handleClearForm = this.handleClearForm.bind(this);
-
-    }
     
-    handleName(e){
+    
+    handleName = (e) =>{
         let value = e.target.value;
         this.setState (
             prevState => ({
@@ -42,7 +34,7 @@ class FormContainer extends Component {
     }
 
 
-    handleAge(e){
+    handleAge = (e) =>{
         let value = e.target.value;
         this.setState (
             prevState => ({
@@ -54,7 +46,7 @@ class FormContainer extends Component {
         );
     }
 
-    handleFormSubmit(e){
+    handleFormSubmit = (e) =>{
         e.preventDefault();
         let userData = this.state.newUser;
         this.setState(prevState => (
@@ -70,7 +62,7 @@ class FormContainer extends Component {
         ));
     }
 
-    handleClearForm(e){
+    handleClearForm = (e) =>{
         e.preventDefault();
         this.setState(
             {
@@ -90,8 +82,10 @@ class FormContainer extends Component {
                     <p>Formulario React JS</p>
                     <form>
                         <Input 
+
                             name="name"
                             type="text"
+                            title="Nombre"
                             value={this.state.newUser.name}
                             placeholder="Ingresa tu nombre"
                             handleChange={this.handleName}
@@ -99,6 +93,7 @@ class FormContainer extends Component {
                         <Input
                             name="age"
                             type="text"
+                            title="Edad"
                             value={this.state.newUser.age}
                             placeholder= "ingresa tu edad"
                             handleChange={this.handleAge}  
