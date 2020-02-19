@@ -18,37 +18,32 @@ class FormContainer extends Component {
             },
             usersSaved: INITIAL_STATE
         }
-
+//llamada  a las APIs en lugar de archivo local
     componentDidMount(){
-        console.log ('componentDidMount');
-
+        const url = 'https://jsonplaceholder.typicode.com/users';
+        fetch(url)
+            .then(response => response.json())
+            .then (data => {
+                console.log (data);
+                this.setState({
+                    usersSaved: data
+                });
+            });
     }
     
     
-    handleName = (e) =>{
+    handleInput =(e) =>{
         let value = e.target.value;
-        this.setState (
+        let name = e.target.name;
+        this.setState(
             prevState => ({
                 newUser: {
                     ...prevState.newUser,
-                    name : value
+                    [name]: value,
+                  
                 }
             })
-        );
-        
-    }
-
-
-    handleAge = (e) =>{
-        let value = e.target.value;
-        this.setState (
-            prevState => ({
-                newUser: {
-                    ...prevState.newUser,
-                    age : value
-                }
-            })
-        );
+        )
     }
 
     handleFormSubmit = (e) =>{
@@ -73,7 +68,8 @@ class FormContainer extends Component {
             {
             newUser:{
                 name: '',
-                age: ''
+                age: '',
+                userName: ''
             }
             }
         );
@@ -93,7 +89,7 @@ class FormContainer extends Component {
                             title="Nombre"
                             value={this.state.newUser.name}
                             placeholder="Ingresa tu nombre"
-                            handleChange={this.handleName}
+                            handleChange={this.handleInput}
                         />
                         <Input
                             name="age"
@@ -101,8 +97,10 @@ class FormContainer extends Component {
                             title="Edad"
                             value={this.state.newUser.age}
                             placeholder= "ingresa tu edad"
-                            handleChange={this.handleAge}  
+                            handleChange={this.handleInput}  
                         />
+                       
+
                         
                         <Button 
                             action ={this.handleFormSubmit}
